@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ARK Operator Console</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <main class="shell">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">A.R.K. local-first control surface</p>
+        <h1>ARK Operator Console</h1>
+        <p class="subtitle">Dry-run status, evidence visibility, and event-spine monitoring for the official node runtime.</p>
+      </div>
+      <button id="refresh">Refresh</button>
+    </header>
+
+    <section class="grid">
+      <article class="card">
+        <h2>Authority Mode</h2>
+        <p id="authority-mode" class="metric">loading</p>
+        <p class="note">AEM translates only after policy approval. Broker remains stub-only until explicitly promoted.</p>
+      </article>
+
+      <article class="card">
+        <h2>Event Bus</h2>
+        <p id="event-count" class="metric">0</p>
+        <p id="event-path" class="path"></p>
+      </article>
+
+      <article class="card">
+        <h2>Evidence</h2>
+        <p id="evidence-count" class="metric">0</p>
+        <p id="evidence-path" class="path"></p>
+      </article>
+    </section>
+
+    <section class="card wide">
+      <h2>Last Event</h2>
+      <pre id="last-event">No event loaded.</pre>
+    </section>
+
+    <section class="card wide">
+      <h2>Last Evidence Record</h2>
+      <pre id="last-evidence">No evidence loaded.</pre>
+    </section>
+  </main>
+  <script src="./app.js"></script>
+</body>
+</html>
