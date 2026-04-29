@@ -1,0 +1,79 @@
+schema_version: "0.1"
+name: "ARK runtime deployment manifest"
+installed_root: "/opt/ark"
+source_repo: "ARK_GENESIS"
+substrate: "ARKlinux"
+mode: "dry_run_only"
+
+artifacts:
+  - id: "runtime"
+    package: "ark-runtime"
+    source: "opt/ark/runtime"
+    target: "/opt/ark/runtime"
+    owner: "root"
+    group: "ark"
+    mode: "0755"
+    mutable: false
+
+  - id: "graveyard"
+    package: "ark-runtime"
+    source: "opt/ark/graveyard"
+    target: "/opt/ark/graveyard"
+    owner: "root"
+    group: "ark"
+    mode: "0755"
+    mutable: false
+
+  - id: "scripts"
+    package: "ark-runtime"
+    source: "opt/ark/scripts"
+    target: "/opt/ark/scripts"
+    owner: "root"
+    group: "ark"
+    mode: "0755"
+    mutable: false
+
+  - id: "ui-static"
+    package: "ark-ui"
+    source: "opt/ark/ui/static"
+    target: "/opt/ark/ui/static"
+    owner: "root"
+    group: "ark"
+    mode: "0755"
+    mutable: false
+
+  - id: "docs"
+    package: "ark-runtime"
+    source: "docs"
+    target: "/opt/ark/docs"
+    owner: "root"
+    group: "ark"
+    mode: "0755"
+    mutable: false
+
+  - id: "bus-state"
+    package: "ark-services"
+    source: null
+    target: "/opt/ark/bus"
+    owner: "ark"
+    group: "ark"
+    mode: "0750"
+    mutable: true
+
+  - id: "evidence-state"
+    package: "ark-services"
+    source: null
+    target: "/opt/ark/evidence"
+    owner: "ark"
+    group: "ark"
+    mode: "0750"
+    mutable: true
+
+  - id: "logs"
+    package: "ark-services"
+    source: null
+    target: "/var/log/ark"
+    owner: "ark"
+    group: "ark"
+    mode: "0750"
+    mutable: true
