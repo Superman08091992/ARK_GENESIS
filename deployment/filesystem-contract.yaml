@@ -1,0 +1,85 @@
+schema_version: "0.1"
+name: "ARK installed node filesystem contract"
+canonical_runtime_root: "/opt/ark"
+legacy_runtime_root: "/opt/ARK"
+legacy_policy: "compatibility_alias_only"
+
+required_paths:
+  - path: "/opt/ark"
+    kind: "directory"
+    owner: "ark"
+    group: "ark"
+    mode: "0755"
+    mutable: true
+
+  - path: "/opt/ark/runtime"
+    kind: "directory"
+    owner: "root"
+    group: "ark"
+    mode: "0755"
+    mutable: false
+
+  - path: "/opt/ark/graveyard"
+    kind: "directory"
+    owner: "root"
+    group: "ark"
+    mode: "0755"
+    mutable: false
+
+  - path: "/opt/ark/ui/static"
+    kind: "directory"
+    owner: "root"
+    group: "ark"
+    mode: "0755"
+    mutable: false
+
+  - path: "/opt/ark/bus"
+    kind: "directory"
+    owner: "ark"
+    group: "ark"
+    mode: "0750"
+    mutable: true
+
+  - path: "/opt/ark/evidence"
+    kind: "directory"
+    owner: "ark"
+    group: "ark"
+    mode: "0750"
+    mutable: true
+
+  - path: "/opt/ark/memory"
+    kind: "directory"
+    owner: "ark"
+    group: "ark"
+    mode: "0750"
+    mutable: true
+
+  - path: "/opt/ark/logs"
+    kind: "symlink"
+    target: "/var/log/ark"
+    owner: "ark"
+    group: "ark"
+    mode: "0777"
+    mutable: false
+
+  - path: "/var/log/ark"
+    kind: "directory"
+    owner: "ark"
+    group: "ark"
+    mode: "0750"
+    mutable: true
+
+forbidden_paths:
+  - "/opt/ARK"
+  - "/tmp/ark-runtime"
+  - "/home/ark"
+
+btrfs_boundaries:
+  - mount: "/opt/ark"
+    subvolume: "@opt-ark"
+  - mount: "/opt/ark/bus"
+    subvolume: "@bus"
+  - mount: "/opt/ark/evidence"
+    subvolume: "@evidence"
+  - mount: "/var/log/ark"
+    subvolume: "@ark-logs"
