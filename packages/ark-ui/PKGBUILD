@@ -1,0 +1,19 @@
+# Maintainer: ARKlinux Core Team
+pkgname=ark-ui
+pkgver=0.1.0
+pkgrel=1
+pkgdesc='A.R.K. static operator console'
+arch=('any')
+url='https://github.com/Superman08091992/ARK_GENESIS'
+license=('custom')
+depends=('ark-runtime')
+source=()
+sha256sums=()
+
+package() {
+  cd "$srcdir/../.."
+
+  install -dm0755 "$pkgdir/opt/ark/ui"
+  cp -a opt/ark/ui/static "$pkgdir/opt/ark/ui/"
+  install -Dm0644 docs/ui/operator-console.md "$pkgdir/opt/ark/docs/ui/operator-console.md"
+}
