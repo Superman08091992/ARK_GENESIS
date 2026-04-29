@@ -1,0 +1,7 @@
+{
+  "schema_version": "0.1",
+  "name": "ARK Graveyard",
+  "role": "immutable doctrine scaffold",
+  "status": "scaffold",
+  "hard_immutability": false
+}
