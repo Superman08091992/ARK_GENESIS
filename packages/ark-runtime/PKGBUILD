@@ -1,0 +1,23 @@
+# Maintainer: ARKlinux Core Team
+pkgname=ark-runtime
+pkgver=0.1.0
+pkgrel=1
+pkgdesc='A.R.K. runtime contracts, Graveyard scaffold, policy gate, AEM, bus, and evidence components'
+arch=('any')
+url='https://github.com/Superman08091992/ARK_GENESIS'
+license=('custom')
+depends=('python')
+source=()
+sha256sums=()
+
+package() {
+  cd "$srcdir/../.."
+
+  install -dm0755 "$pkgdir/opt/ark"
+  cp -a opt "$pkgdir/"
+
+  install -dm0755 "$pkgdir/opt/ark/docs"
+  cp -a docs "$pkgdir/opt/ark/"
+
+  install -Dm0644 packaging/env/ark.env.example "$pkgdir/etc/ark/ark.env.example"
+}
