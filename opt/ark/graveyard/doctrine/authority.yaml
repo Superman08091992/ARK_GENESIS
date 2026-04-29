@@ -1,0 +1,3 @@
+schema_version: "0.1"
+name: "Authority"
+rule: "Operator supremacy, HRM approval boundary, deny by default."
