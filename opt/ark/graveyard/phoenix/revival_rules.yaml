@@ -1,0 +1,3 @@
+schema_version: "0.1"
+name: "revival_rules"
+rule: "Revival requires compatible manifest, evidence, and operator approval."
