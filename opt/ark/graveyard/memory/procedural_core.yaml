@@ -1,0 +1,3 @@
+schema_version: "0.1"
+name: "procedural_core"
+rule: "Procedural invariants are append-only doctrine until formally revised."
