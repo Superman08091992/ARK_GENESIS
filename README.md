@@ -4,9 +4,9 @@ ARK_GENESIS is the source-of-truth build repository for the ARK scaffold. It is 
 
 Canonical separation:
 
-- `ARK_GENESIS` = source repository, doctrine, staged runtime contracts, tests.
+- `ARK_GENESIS` = source repository, doctrine, staged runtime contracts, UI source, tests.
 - `/opt/ark` = installed runtime target on the official node.
-- `ARKlinux` = Arch-based host substrate that mounts and runs `/opt/ark`.
+- `ARKlinux` = Arch-based host substrate that mounts, packages, signs, publishes, and runs `/opt/ark`.
 
 Current v0.1 scope:
 
@@ -17,11 +17,24 @@ Current v0.1 scope:
 - ExecutionBroker stub-only mediation layer.
 - Local event bus using append-only JSONL records.
 - Evidence writer using canonical JSON payload hashing, per-kind evidence records, and append manifest.
+- Local status API exposing `/health` and `/status` on loopback by default.
+- Static operator console under `opt/ark/ui/static/`.
 - End-to-end dry-run pipeline tests, including recorded bus/evidence path.
 
 Critical authority rule:
 
-A.R.K. owns authorization, policy, state, and safety. AEM does not authorize. ExecutionBroker mediates final tool execution. Aletheia owns truth verification only.
+A.R.K. owns authorization, policy, state, and safety. AEM does not authorize. ExecutionBroker mediates final tool execution. Aletheia owns truth verification only. The UI observes state; it does not approve or execute actions.
+
+Key docs:
+
+- `docs/arklinux/release-procedure.md`
+- `docs/ui/operator-console.md`
+
+Local API development command:
+
+```bash
+python -m opt.ark.runtime.api.server --host 127.0.0.1 --port 8081 --runtime-root /opt/ark
+```
 
 Validation:
 
@@ -34,6 +47,7 @@ python -m py_compile \
   opt/ark/runtime/execution_broker/*.py \
   opt/ark/runtime/bus/*.py \
   opt/ark/runtime/evidence/*.py \
+  opt/ark/runtime/api/*.py \
   tests/test_graveyard_contracts.py \
   tests/test_kernel_contracts.py \
   tests/test_action_authorization_flow.py \
@@ -42,7 +56,8 @@ python -m py_compile \
   tests/test_end_to_end_dry_run_pipeline.py \
   tests/test_event_bus.py \
   tests/test_evidence_writer.py \
-  tests/test_end_to_end_recorded_pipeline.py
+  tests/test_end_to_end_recorded_pipeline.py \
+  tests/test_runtime_status_api.py
 
 python -m unittest \
   tests/test_graveyard_contracts.py \
@@ -53,5 +68,6 @@ python -m unittest \
   tests/test_end_to_end_dry_run_pipeline.py \
   tests/test_event_bus.py \
   tests/test_evidence_writer.py \
-  tests/test_end_to_end_recorded_pipeline.py
+  tests/test_end_to_end_recorded_pipeline.py \
+  tests/test_runtime_status_api.py
 ```
