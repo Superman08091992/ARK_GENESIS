@@ -1,0 +1,44 @@
+schema_version: "0.1"
+name: "ARK service registry"
+default_bind: "127.0.0.1"
+default_runtime_root: "/opt/ark"
+
+services:
+  - id: "ark-local-api"
+    package: "ark-services"
+    unit: "ark-local-api.service"
+    command: "/usr/bin/ark-local-api"
+    user: "ark"
+    group: "ark"
+    bind: "127.0.0.1"
+    port: 8081
+    enabled_by_default: false
+    authority: "read_only_status"
+    reads:
+      - "/opt/ark/bus"
+      - "/opt/ark/evidence"
+      - "/opt/ark/docs"
+      - "/opt/ark/ui/static"
+    writes:
+      - "/var/log/ark"
+    forbidden:
+      - "shell_execution"
+      - "browser_automation"
+      - "account_access"
+      - "policy_override"
+      - "hrm_approval"
+      - "aem_authorization"
+
+future_services:
+  - id: "ark-kyle"
+    authority: "acquisition_status_stub"
+  - id: "ark-aletheia"
+    authority: "truth_status_stub"
+  - id: "ark-joey"
+    authority: "structure_status_stub"
+  - id: "ark-hrm"
+    authority: "approval_status_stub"
+  - id: "ark-kenny"
+    authority: "execution_request_status_stub"
+  - id: "ark-watchdog"
+    authority: "integrity_status_stub"
