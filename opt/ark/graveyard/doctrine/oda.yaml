@@ -1,0 +1,7 @@
+schema_version: "0.1"
+name: "ODA"
+order:
+  - observe
+  - decide
+  - act
+rule: "ODA frames record references only; they do not execute."
