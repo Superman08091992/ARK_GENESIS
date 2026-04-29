@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -euo pipefail
+export PYTHONPATH="/${PYTHONPATH:+:$PYTHONPATH}"
+exec python -m opt.ark.runtime.api.server --host "${ARK_API_HOST:-127.0.0.1}" --port "${ARK_API_PORT:-8081}" --runtime-root "${ARK_RUNTIME_ROOT:-/opt/ark}"
