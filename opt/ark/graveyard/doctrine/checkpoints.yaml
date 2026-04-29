@@ -1,0 +1,3 @@
+schema_version: "0.1"
+name: "Checkpoints"
+rule: "Action paths require a checkpoint reference before AEM translation."
