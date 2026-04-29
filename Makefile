@@ -1,4 +1,4 @@
-.PHONY: test compile packages repo validate-packaging
+.PHONY: test compile packages repo validate-packaging validate-deployment smoke-contract
 
 PYTHON ?= python
 
@@ -12,6 +12,9 @@ compile:
 		opt/ark/runtime/bus/*.py \
 		opt/ark/runtime/evidence/*.py \
 		opt/ark/runtime/api/*.py \
+		scripts/validate_deployment_manifest.py \
+		scripts/render_runtime_tree.py \
+		scripts/smoke_check_runtime_contract.py \
 		tests/*.py
 
 test:
@@ -26,10 +29,19 @@ test:
 		tests/test_evidence_writer.py \
 		tests/test_end_to_end_recorded_pipeline.py \
 		tests/test_runtime_status_api.py \
-		tests/test_packaging_scaffold.py
+		tests/test_packaging_scaffold.py \
+		tests/test_deployment_manifest.py \
+		tests/test_runtime_tree_contract.py \
+		tests/test_service_registry.py
 
 validate-packaging:
 	$(PYTHON) -m unittest tests/test_packaging_scaffold.py
+
+validate-deployment:
+	$(PYTHON) scripts/validate_deployment_manifest.py
+
+smoke-contract:
+	$(PYTHON) scripts/smoke_check_runtime_contract.py
 
 packages:
 	./scripts/build-packages.sh
