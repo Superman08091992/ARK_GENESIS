@@ -1,0 +1,47 @@
+name: ARK Genesis Current Validation
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  validate-current:
+    runs-on: ubuntu-latest
+    env:
+      PYTHONPATH: .
+    steps:
+      - name: Checkout current repository state
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Prove current script dispatcher is active
+        run: |
+          echo "HEAD=$(git rev-parse HEAD)"
+          echo "Smoke script preview:"
+          sed -n '1,40p' scripts/smoke_check_runtime_contract.py
+          echo "Dispatcher help:"
+          python -m scripts --help
+
+      - name: Compile source and tests
+        run: make compile
+
+      - name: Run unit tests
+        run: make test
+
+      - name: Validate packaging scaffold
+        run: make validate-packaging
+
+      - name: Validate deployment contracts through dispatcher
+        run: python -m scripts validate-deployment
+
+      - name: Smoke runtime contract through dispatcher
+        run: python -m scripts smoke-contract
