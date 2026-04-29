@@ -1,0 +1,22 @@
+[Unit]
+Description=ARK Local Status API
+Documentation=file:/opt/ark/docs/ui/operator-console.md
+After=network.target
+
+[Service]
+Type=simple
+User=ark
+Group=ark
+EnvironmentFile=-/etc/ark/ark.env
+ExecStart=/usr/bin/ark-local-api
+Restart=on-failure
+RestartSec=2s
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectSystem=strict
+ProtectHome=yes
+ReadWritePaths=/opt/ark/bus /opt/ark/evidence /var/log/ark
+WorkingDirectory=/opt/ark
+
+[Install]
+WantedBy=multi-user.target
