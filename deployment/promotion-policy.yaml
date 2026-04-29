@@ -1,0 +1,61 @@
+schema_version: "0.1"
+name: "ARK runtime promotion policy"
+mode: "operator_approved"
+default_decision: "deny"
+
+allowed_sources:
+  - "opt/ark/runtime"
+  - "opt/ark/graveyard"
+  - "opt/ark/scripts"
+  - "opt/ark/ui/static"
+  - "docs"
+  - "packaging"
+  - "packages"
+
+blocked_sources:
+  - ".git"
+  - ".env"
+  - "private_material"
+  - "local_credentials"
+  - "machine_specific_state"
+
+required_prechecks:
+  - "make compile"
+  - "make test"
+  - "make validate-packaging"
+  - "python opt/ark/scripts/validate_graveyard.py"
+  - "python scripts/validate_deployment_manifest.py"
+
+promotion_steps:
+  - id: "validate"
+    description: "Run source, package, deployment, and doctrine validators."
+    evidence_required: true
+  - id: "snapshot"
+    description: "Create target node snapshot before replacement."
+    evidence_required: true
+  - id: "stage"
+    description: "Stage files into a temporary deployment directory."
+    evidence_required: true
+  - id: "install"
+    description: "Install approved package set into /opt/ark and system paths."
+    evidence_required: true
+  - id: "restart_services"
+    description: "Restart only services listed in service-registry.yaml."
+    evidence_required: true
+  - id: "verify"
+    description: "Run smoke checks against health, status, bus, and evidence state."
+    evidence_required: true
+
+operator_approval_required_for:
+  - "install"
+  - "restart_services"
+  - "capability_expansion"
+  - "network_binding_change"
+  - "service_identity_change"
+  - "graveyard_change"
+
+blocked_without_formal_policy:
+  - "unbounded_host_action"
+  - "external_account_action"
+  - "public_network_bind"
+  - "private_material_in_source"
