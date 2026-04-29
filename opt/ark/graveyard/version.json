@@ -1,0 +1,8 @@
+{
+  "schema_version": "0.1",
+  "graveyard_version": "0.1.0",
+  "compatibility": {
+    "runtime_kernel": "0.1",
+    "policy_gate": "0.1"
+  }
+}
