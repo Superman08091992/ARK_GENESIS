@@ -4,7 +4,7 @@ ARK_GENESIS is the source-of-truth build repository for the ARK scaffold. It is 
 
 Canonical separation:
 
-- `ARK_GENESIS` = source repository, doctrine, staged runtime contracts, UI source, package scaffolds, tests.
+- `ARK_GENESIS` = source repository, doctrine, staged runtime contracts, UI source, package scaffolds, deployment contracts, tests.
 - `/opt/ark` = installed runtime target on the official node.
 - `ARKlinux` = Arch-based host substrate that mounts, packages, signs, publishes, and runs `/opt/ark`.
 
@@ -20,7 +20,8 @@ Current v0.1 scope:
 - Local status API exposing `/health` and `/status` on loopback by default.
 - Static operator console under `opt/ark/ui/static/`.
 - Arch package scaffolds for `ark-runtime`, `ark-ui`, and `ark-services`.
-- Service wrapper, systemd unit, sysusers rule, tmpfiles rule, and environment example.
+- Deployment contracts for runtime layout, filesystem boundaries, service registry, and promotion policy.
+- GitHub Actions validation workflow.
 - End-to-end dry-run pipeline tests, including recorded bus/evidence path.
 
 Critical authority rule:
@@ -31,6 +32,8 @@ Key docs:
 
 - `docs/arklinux/release-procedure.md`
 - `docs/ui/operator-console.md`
+- `docs/deployment/installed-node-contract.md`
+- `docs/deployment/runtime-promotion.md`
 - `packages/README.md`
 
 Local API development command:
@@ -44,12 +47,9 @@ Validation:
 ```bash
 make compile
 make test
-```
-
-Packaging scaffold validation:
-
-```bash
 make validate-packaging
+make validate-deployment
+make smoke-contract
 ```
 
 Future Arch packaging commands, once building locally on Arch/ARKlinux:
