@@ -10,6 +10,8 @@ on:
 jobs:
   validate:
     runs-on: ubuntu-latest
+    env:
+      PYTHONPATH: .
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -19,8 +21,11 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Show make targets
-        run: make -n validate-deployment || true
+      - name: Show checked-out commit and targets
+        run: |
+          git rev-parse HEAD
+          sed -n '1,80p' scripts/smoke_check_runtime_contract.py
+          make -n validate-deployment || true
 
       - name: Compile
         run: make compile
