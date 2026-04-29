@@ -1,0 +1,21 @@
+# Maintainer: ARKlinux Core Team
+pkgname=ark-services
+pkgver=0.1.0
+pkgrel=1
+pkgdesc='A.R.K. service wrappers, systemd units, sysusers, and tmpfiles integration'
+arch=('any')
+url='https://github.com/Superman08091992/ARK_GENESIS'
+license=('custom')
+depends=('ark-runtime' 'systemd' 'bash')
+source=()
+sha256sums=()
+
+package() {
+  cd "$srcdir/../.."
+
+  install -Dm0755 packaging/ark-local-api "$pkgdir/usr/bin/ark-local-api"
+  install -Dm0644 packaging/systemd/ark-local-api.service "$pkgdir/usr/lib/systemd/system/ark-local-api.service"
+  install -Dm0644 packaging/sysusers/ark.conf "$pkgdir/usr/lib/sysusers.d/ark.conf"
+  install -Dm0644 packaging/tmpfiles/ark.conf "$pkgdir/usr/lib/tmpfiles.d/ark.conf"
+  install -Dm0644 packaging/env/ark.env.example "$pkgdir/etc/ark/ark.env.example"
+}
