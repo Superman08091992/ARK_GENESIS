@@ -1,0 +1,11 @@
+schema_version: "0.1"
+name: "Cube"
+faces:
+  - concipere
+  - realiser
+  - actuare
+  - reconnoistre
+  - recolligere
+  - suus-affermen
+  - conservare
+rule: "Cube state must identify one active canonical face."
