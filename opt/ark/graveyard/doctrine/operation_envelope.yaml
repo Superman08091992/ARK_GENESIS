@@ -1,0 +1,8 @@
+schema_version: "0.1"
+name: "OperationEnvelope"
+required_refs:
+  - aletheia_ref
+  - joey_plan_ref
+  - hrm_approval_ref
+  - checkpoint_ref
+  - action_intent_ref
