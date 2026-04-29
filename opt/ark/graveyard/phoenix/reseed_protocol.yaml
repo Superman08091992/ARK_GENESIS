@@ -1,0 +1,3 @@
+schema_version: "0.1"
+name: "reseed_protocol"
+rule: "Reseed restores doctrine before mutable runtime state."
