@@ -21,10 +21,10 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Show checked-out commit and targets
+      - name: Show checked-out commit and dispatcher
         run: |
           git rev-parse HEAD
-          sed -n '1,80p' scripts/smoke_check_runtime_contract.py
+          python -m scripts --help
           make -n validate-deployment || true
 
       - name: Compile
@@ -34,7 +34,7 @@ jobs:
         run: make test
 
       - name: Validate deployment contracts
-        run: python scripts/validate_deployment_manifest.py
+        run: python -m scripts validate-deployment
 
       - name: Smoke runtime contract
-        run: python scripts/smoke_check_runtime_contract.py
+        run: python -m scripts smoke-contract
