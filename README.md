@@ -4,7 +4,7 @@ ARK_GENESIS is the source-of-truth build repository for the ARK scaffold. It is 
 
 Canonical separation:
 
-- `ARK_GENESIS` = source repository, doctrine, staged runtime contracts, UI source, tests.
+- `ARK_GENESIS` = source repository, doctrine, staged runtime contracts, UI source, package scaffolds, tests.
 - `/opt/ark` = installed runtime target on the official node.
 - `ARKlinux` = Arch-based host substrate that mounts, packages, signs, publishes, and runs `/opt/ark`.
 
@@ -19,6 +19,8 @@ Current v0.1 scope:
 - Evidence writer using canonical JSON payload hashing, per-kind evidence records, and append manifest.
 - Local status API exposing `/health` and `/status` on loopback by default.
 - Static operator console under `opt/ark/ui/static/`.
+- Arch package scaffolds for `ark-runtime`, `ark-ui`, and `ark-services`.
+- Service wrapper, systemd unit, sysusers rule, tmpfiles rule, and environment example.
 - End-to-end dry-run pipeline tests, including recorded bus/evidence path.
 
 Critical authority rule:
@@ -29,6 +31,7 @@ Key docs:
 
 - `docs/arklinux/release-procedure.md`
 - `docs/ui/operator-console.md`
+- `packages/README.md`
 
 Local API development command:
 
@@ -39,35 +42,19 @@ python -m opt.ark.runtime.api.server --host 127.0.0.1 --port 8081 --runtime-root
 Validation:
 
 ```bash
-python -m py_compile \
-  opt/ark/scripts/validate_graveyard.py \
-  opt/ark/runtime/kernel/*.py \
-  opt/ark/runtime/policy/*.py \
-  opt/ark/runtime/action_model/*.py \
-  opt/ark/runtime/execution_broker/*.py \
-  opt/ark/runtime/bus/*.py \
-  opt/ark/runtime/evidence/*.py \
-  opt/ark/runtime/api/*.py \
-  tests/test_graveyard_contracts.py \
-  tests/test_kernel_contracts.py \
-  tests/test_action_authorization_flow.py \
-  tests/test_action_model.py \
-  tests/test_execution_broker.py \
-  tests/test_end_to_end_dry_run_pipeline.py \
-  tests/test_event_bus.py \
-  tests/test_evidence_writer.py \
-  tests/test_end_to_end_recorded_pipeline.py \
-  tests/test_runtime_status_api.py
+make compile
+make test
+```
 
-python -m unittest \
-  tests/test_graveyard_contracts.py \
-  tests/test_kernel_contracts.py \
-  tests/test_action_authorization_flow.py \
-  tests/test_action_model.py \
-  tests/test_execution_broker.py \
-  tests/test_end_to_end_dry_run_pipeline.py \
-  tests/test_event_bus.py \
-  tests/test_evidence_writer.py \
-  tests/test_end_to_end_recorded_pipeline.py \
-  tests/test_runtime_status_api.py
+Packaging scaffold validation:
+
+```bash
+make validate-packaging
+```
+
+Future Arch packaging commands, once building locally on Arch/ARKlinux:
+
+```bash
+make packages
+make repo
 ```
