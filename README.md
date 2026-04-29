@@ -15,7 +15,9 @@ Current v0.1 scope:
 - Policy preconditions: Aletheia ref, Joey plan ref, HRM approval ref, checkpoint ref, operator/request identity, dry-run-only enforcement.
 - AEM translator-only layer.
 - ExecutionBroker stub-only mediation layer.
-- End-to-end dry-run pipeline tests.
+- Local event bus using append-only JSONL records.
+- Evidence writer using canonical JSON payload hashing, per-kind evidence records, and append manifest.
+- End-to-end dry-run pipeline tests, including recorded bus/evidence path.
 
 Critical authority rule:
 
@@ -30,12 +32,17 @@ python -m py_compile \
   opt/ark/runtime/policy/*.py \
   opt/ark/runtime/action_model/*.py \
   opt/ark/runtime/execution_broker/*.py \
+  opt/ark/runtime/bus/*.py \
+  opt/ark/runtime/evidence/*.py \
   tests/test_graveyard_contracts.py \
   tests/test_kernel_contracts.py \
   tests/test_action_authorization_flow.py \
   tests/test_action_model.py \
   tests/test_execution_broker.py \
-  tests/test_end_to_end_dry_run_pipeline.py
+  tests/test_end_to_end_dry_run_pipeline.py \
+  tests/test_event_bus.py \
+  tests/test_evidence_writer.py \
+  tests/test_end_to_end_recorded_pipeline.py
 
 python -m unittest \
   tests/test_graveyard_contracts.py \
@@ -43,5 +50,8 @@ python -m unittest \
   tests/test_action_authorization_flow.py \
   tests/test_action_model.py \
   tests/test_execution_broker.py \
-  tests/test_end_to_end_dry_run_pipeline.py
+  tests/test_end_to_end_dry_run_pipeline.py \
+  tests/test_event_bus.py \
+  tests/test_evidence_writer.py \
+  tests/test_end_to_end_recorded_pipeline.py
 ```
