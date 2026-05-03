@@ -79,7 +79,7 @@ EOF
 (
   cd "$COMBINED"
   find . -type f | sort | sed 's#^./##' > MANIFEST.txt
-  find . -type f | sort -print0 | xargs -0 sha256sum > SHA256SUMS.txt
+  find . -type f -print0 | sort -z | xargs -0 sha256sum > SHA256SUMS.txt
 )
 
 (
